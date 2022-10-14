@@ -1,4 +1,4 @@
-module github.com/jaxxstorm/aws-sso-creds
+module github.com/alecuba16/aws-sso-creds-default-login
 
 go 1.17
 

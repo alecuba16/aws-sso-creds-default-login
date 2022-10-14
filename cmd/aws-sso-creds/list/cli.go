@@ -1,8 +1,8 @@
 package list
 
 import (
-	"aws-sso-creds-default/cmd/aws-sso-creds/list/accounts"
-	"aws-sso-creds-default/cmd/aws-sso-creds/list/roles"
+	"github.com/alecuba16/aws-sso-creds-default-login/cmd/aws-sso-creds/list/accounts"
+	"github.com/alecuba16/aws-sso-creds-default-login/cmd/aws-sso-creds/list/roles"
 	"github.com/spf13/cobra"
 )
 

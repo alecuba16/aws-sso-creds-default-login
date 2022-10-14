@@ -1,8 +1,8 @@
 package get
 
 import (
-	"aws-sso-creds-default/pkg/credentials"
 	"fmt"
+	"github.com/alecuba16/aws-sso-creds-default-login/pkg/credentials"
 	"os"
 	"time"
 

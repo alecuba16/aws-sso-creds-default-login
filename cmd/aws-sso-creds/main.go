@@ -1,12 +1,12 @@
 package main
 
 import (
-	"aws-sso-creds-default/cmd/aws-sso-creds/export"
-	"aws-sso-creds-default/cmd/aws-sso-creds/get"
-	"aws-sso-creds-default/cmd/aws-sso-creds/helper"
-	"aws-sso-creds-default/cmd/aws-sso-creds/list"
-	"aws-sso-creds-default/cmd/aws-sso-creds/set"
-	"aws-sso-creds-default/cmd/aws-sso-creds/version"
+	"github.com/alecuba16/aws-sso-creds-default-login/cmd/aws-sso-creds/export"
+	"github.com/alecuba16/aws-sso-creds-default-login/cmd/aws-sso-creds/get"
+	"github.com/alecuba16/aws-sso-creds-default-login/cmd/aws-sso-creds/helper"
+	"github.com/alecuba16/aws-sso-creds-default-login/cmd/aws-sso-creds/list"
+	"github.com/alecuba16/aws-sso-creds-default-login/cmd/aws-sso-creds/set"
+	"github.com/alecuba16/aws-sso-creds-default-login/cmd/aws-sso-creds/version"
 	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"

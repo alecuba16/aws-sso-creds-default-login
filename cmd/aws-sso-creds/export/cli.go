@@ -1,8 +1,8 @@
 package export
 
 import (
-	"aws-sso-creds-default/pkg/credentials"
 	"fmt"
+	"github.com/alecuba16/aws-sso-creds-default-login/pkg/credentials"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
