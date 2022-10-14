@@ -108,7 +108,7 @@ This is a compiled go binary, so just put it in your `$PATH`.
 You can also install it from [homebrew](homebrew.sh)
 
 ```bash
-brew tap jaxxstorm/tap
+brew tap alecuba16/tap
 brew install aws-sso-creds
 ```
 
