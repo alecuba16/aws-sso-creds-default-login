@@ -1,11 +1,11 @@
 package roles
 
 import (
+	"aws-sso-creds-default/pkg/config"
 	"fmt"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/sso"
-	"github.com/jaxxstorm/aws-sso-creds/pkg/config"
 	"github.com/liggitt/tabwriter"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -22,7 +22,7 @@ const (
 )
 
 var (
-	results int64
+	results   int64
 	accountID string
 )
 
@@ -62,8 +62,8 @@ func Command() *cobra.Command {
 
 			roles, err := svc.ListAccountRoles(&sso.ListAccountRolesInput{
 				AccessToken: &token,
-				MaxResults: &results,
-				AccountId: &accountID,
+				MaxResults:  &results,
+				AccountId:   &accountID,
 			})
 
 			writer := tabwriter.NewWriter(os.Stdout, tabwriterMinWidth, tabwriterWidth, tabwriterPadding, tabwriterPadChar, tabwriterFlags)

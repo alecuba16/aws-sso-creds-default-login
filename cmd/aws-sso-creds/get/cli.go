@@ -1,23 +1,22 @@
 package get
 
 import (
+	"aws-sso-creds-default/pkg/credentials"
 	"fmt"
 	"os"
 	"time"
 
-	"github.com/jaxxstorm/aws-sso-creds/pkg/credentials"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
 	. "github.com/logrusorgru/aurora"
 )
 
-
 func Command() *cobra.Command {
 	command := &cobra.Command{
-		Use:   "get",
-		Short: "Get AWS temporary credentials to use on the command line",
-		Long:  "Retrieve AWS temporary credentials",
+		Use:          "get",
+		Short:        "Get AWS temporary credentials to use on the command line",
+		Long:         "Retrieve AWS temporary credentials",
 		SilenceUsage: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 
@@ -25,12 +24,13 @@ func Command() *cobra.Command {
 
 			profile := viper.GetString("profile")
 			homeDir := viper.GetString("home-directory")
+			login := viper.GetBool("login")
 
 			if profile == "" {
 				return fmt.Errorf("no profile specified")
 			}
 
-			creds, accountID, err := credentials.GetSSOCredentials(profile, homeDir)
+			creds, accountID, err := credentials.GetSSOCredentials(profile, homeDir, login)
 
 			if err != nil {
 				return err

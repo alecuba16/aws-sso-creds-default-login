@@ -1,10 +1,11 @@
 package set
 
 import (
+	"aws-sso-creds-default/pkg/credentials"
 	"fmt"
-	"github.com/jaxxstorm/aws-sso-creds/pkg/credentials"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"os"
 	"time"
 
 	"github.com/bigkevmcd/go-configparser"
@@ -15,25 +16,40 @@ func Command() *cobra.Command {
 		Use:   "set PROFILE",
 		Short: "Create a new AWS profile with temporary credentials",
 		Long:  "Create a new AWS profile with temporary credentials",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.MinimumNArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 
 			cmd.SilenceUsage = true
 			profile := viper.GetString("profile")
+			asdefault := viper.GetBool("asdefault")
+			login := viper.GetBool("login")
 			homeDir := viper.GetString("home-directory")
+			credsPath := fmt.Sprintf("%s/.aws/credentials", homeDir)
+			cfgPath := fmt.Sprintf("%s/.aws/config", homeDir)
 
 			if profile == "" {
 				return fmt.Errorf("no profile specified")
 			}
 
-			creds, _, err := credentials.GetSSOCredentials(profile, homeDir)
-
-			credsFile, err := configparser.NewConfigParserFromFile(fmt.Sprintf("%s/.aws/credentials", homeDir))
+			creds, _, err := credentials.GetSSOCredentials(profile, homeDir, login)
 			if err != nil {
 				return err
 			}
 
-			configFile, err := configparser.NewConfigParserFromFile(fmt.Sprintf("%s/.aws/config", homeDir))
+			credsFile, err := configparser.NewConfigParserFromFile(credsPath)
+			if os.IsNotExist(err) {
+				// Ensure the new empty credentials file is not readable by others.
+				if f, err := os.OpenFile(credsPath, os.O_CREATE, 0600); err != nil {
+					return err
+				} else {
+					f.Close()
+				}
+				credsFile = configparser.New()
+			} else if err != nil {
+				return err
+			}
+
+			configFile, err := configparser.NewConfigParserFromFile(cfgPath)
 			if err != nil {
 				return err
 			}
@@ -46,11 +62,19 @@ func Command() *cobra.Command {
 			credsFile.Set(args[0], "aws_secret_access_key", *creds.RoleCredentials.SecretAccessKey)
 			credsFile.Set(args[0], "aws_session_token", *creds.RoleCredentials.SessionToken)
 
-			credsFile.SaveWithDelimiter(fmt.Sprintf("%s/.aws/credentials", homeDir), "=")
-			configFile.SaveWithDelimiter(fmt.Sprintf("%s/.aws/config", homeDir), "=")
+			if asdefault == true {
+				credsFile.AddSection("default")
+				configFile.AddSection(fmt.Sprintf("profile default"))
+				credsFile.Set("default", "aws_access_key_id", *creds.RoleCredentials.AccessKeyId)
+				credsFile.Set("default", "aws_secret_access_key", *creds.RoleCredentials.SecretAccessKey)
+				credsFile.Set("default", "aws_session_token", *creds.RoleCredentials.SessionToken)
+			}
 
-			fmt.Println(fmt.Sprintf("credentials saved to profile: %s", args[0]))
-			fmt.Println(fmt.Sprintf("these credentials will expire:  %s", time.Unix(*creds.RoleCredentials.Expiration, 0).Format(time.UnixDate)))
+			credsFile.SaveWithDelimiter(credsPath, "=")
+			configFile.SaveWithDelimiter(cfgPath, "=")
+
+			fmt.Printf("credentials saved to profile: %s\n", args[0])
+			fmt.Printf("these credentials will expire:  %s\n", time.Unix(*creds.RoleCredentials.Expiration, 0).Format(time.UnixDate))
 
 			return nil
 		},

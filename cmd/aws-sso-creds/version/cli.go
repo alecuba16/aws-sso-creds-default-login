@@ -1,12 +1,12 @@
 package version
 
 import (
+	"aws-sso-creds-default/pkg/version"
 	"fmt"
 	"os"
 
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/pulumi/pulumictl/pkg/gitversion"
-	"github.com/jaxxstorm/aws-sso-creds/pkg/version"
 	"github.com/spf13/cobra"
 )
 

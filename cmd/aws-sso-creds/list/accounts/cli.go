@@ -1,6 +1,7 @@
 package accounts
 
 import (
+	"aws-sso-creds-default/pkg/config"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -8,7 +9,6 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/sso"
-	"github.com/jaxxstorm/aws-sso-creds/pkg/config"
 	"github.com/liggitt/tabwriter"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"

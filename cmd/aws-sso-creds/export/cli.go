@@ -1,18 +1,18 @@
 package export
 
 import (
+	"aws-sso-creds-default/pkg/credentials"
 	"fmt"
 
-	"github.com/jaxxstorm/aws-sso-creds/pkg/credentials"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
 
 func Command() *cobra.Command {
 	command := &cobra.Command{
-		Use:   "export",
-		Short: "Generates a set of shell commands to export AWS temporary creds to your environment",
-		Long:  "Generates a set of shell commands to export AWS temporary creds to your environment",
+		Use:          "export",
+		Short:        "Generates a set of shell commands to export AWS temporary creds to your environment",
+		Long:         "Generates a set of shell commands to export AWS temporary creds to your environment",
 		SilenceUsage: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 
@@ -20,12 +20,13 @@ func Command() *cobra.Command {
 
 			profile := viper.GetString("profile")
 			homeDir := viper.GetString("home-directory")
+			login := viper.GetBool("login")
 
 			if profile == "" {
 				return fmt.Errorf("no profile specified")
 			}
 
-			creds, _, err := credentials.GetSSOCredentials(profile, homeDir)
+			creds, _, err := credentials.GetSSOCredentials(profile, homeDir, login)
 
 			if err != nil {
 				return err

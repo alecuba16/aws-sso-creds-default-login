@@ -2,6 +2,8 @@
 
 `aws-sso-creds` is a helper utility to retrieve [temporary credentials](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp.html) when using [AWS SSO](https://aws.amazon.com/single-sign-on/)
 
+This version includes the setting of the default profile inside the ~/.aws/credentials and the SSO login using the already installed aws CLI.
+
 ## About
 
 If you're using AWS SSO, you're able to set up your AWS profile like so:
@@ -49,7 +51,7 @@ This simple utility is designed to take the pain out of this process. It can:
 If you just want to retrieve a set of credentials for your AWS SSO based profile, just run `aws-sso-creds get`:
 
 ```bash
-$ aws-sso-creds get
+$ aws-sso-creds get [profile] [-l] 
 Your temporary credentials for account <foo> are:
 
 AWS_ACCESS_KEY_ID	 <KEY>
@@ -109,3 +111,9 @@ You can also install it from [homebrew](homebrew.sh)
 brew tap jaxxstorm/tap
 brew install aws-sso-creds
 ```
+
+# Contributors
+
+Author [Lee Briggs](https://github.com/jaxxstorm)
+
+Contributor [Alejandro Blanco-M](https://github.com/alecuba16)

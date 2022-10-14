@@ -1,9 +1,9 @@
 package helper
 
 import (
+	"aws-sso-creds-default/pkg/credentials"
 	"encoding/json"
 	"fmt"
-	"github.com/jaxxstorm/aws-sso-creds/pkg/credentials"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"time"
@@ -29,23 +29,24 @@ func Command() *cobra.Command {
 
 			profile := viper.GetString("profile")
 			homeDir := viper.GetString("home-directory")
+			login := viper.GetBool("login")
 
 			if profile == "" {
 				return fmt.Errorf("no profile specified")
 			}
 
-			creds, _, err := credentials.GetSSOCredentials(profile, homeDir)
+			creds, _, err := credentials.GetSSOCredentials(profile, homeDir, login)
 
 			if err != nil {
 				return err
 			}
 
 			rawCreds := CredentialsProcessOutput{
-				Version: 1,
-				AccessKeyId: *creds.RoleCredentials.AccessKeyId,
+				Version:         1,
+				AccessKeyId:     *creds.RoleCredentials.AccessKeyId,
 				SecretAccessKey: *creds.RoleCredentials.SecretAccessKey,
-				SessionToken: *creds.RoleCredentials.SessionToken,
-				Expiration: time.Unix(*creds.RoleCredentials.Expiration / 1000, 0).Format(time.RFC3339),
+				SessionToken:    *creds.RoleCredentials.SessionToken,
+				Expiration:      time.Unix(*creds.RoleCredentials.Expiration/1000, 0).Format(time.RFC3339),
 			}
 
 			output, err := json.Marshal(rawCreds)

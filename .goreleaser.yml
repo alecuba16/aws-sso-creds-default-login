@@ -12,7 +12,7 @@ builds:
   goarch:
     - amd64
     - arm64
-  ldflags: -X github.com/jaxxstorm/aws-sso-creds/pkg/version.Version={{.Version}}
+  ldflags: -X github.com/alecuba16/aws-sso-creds-default-login/pkg/version.Version={{.Version}}
   binary: aws-sso-creds
   main: ./cmd/aws-sso-creds/main.go
 archives:
@@ -28,13 +28,13 @@ release:
   prerelease: auto
 brews:
   - 
-    name: aws-sso-creds
+    name: aws-sso-creds-default-login
     tap:
-      owner: jaxxstorm
+      owner: alecuba16
       name: homebrew-tap
     commit_author:
-      name: GitHub Actions
-      email: bot@leebriggs.co.uk
+      name: Alejandro Blanco-M
+      email: alecuba16@gmail.com
     folder: Formula
-    homepage: "https://leebriggs.co.uk"
-    description: "Helper utility to get temporary credentials from AWS SSO"
+    homepage: "https://www.linkedin.com/in/alejandro-blanco-m-b847244b/"
+    description: "Get AWS SSO temporary creds from an SSO profile. Includes set as the default profile inside the credentials and login flag"
