@@ -13,8 +13,8 @@ builds:
     - amd64
     - arm64
   ldflags: -X github.com/alecuba16/aws-sso-creds-default-login/pkg/version.Version={{.Version}}
-  binary: aws-sso-creds
-  main: ./cmd/aws-sso-creds/main.go
+  binary: aws-sso-creds-default-login
+  main: ./cmd/aws-sso-creds-default-login/main.go
 archives:
 - name_template: "{{ .Binary }}-{{ .Tag }}-{{ .Os }}-{{ .Arch }}"
   format_overrides:
