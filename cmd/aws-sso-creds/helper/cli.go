@@ -1,9 +1,9 @@
 package helper
 
 import (
+	"aws-sso-creds-default-login/pkg/credentials"
 	"encoding/json"
 	"fmt"
-	"github.com/alecuba16/aws-sso-creds-default-login/pkg/credentials"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"time"

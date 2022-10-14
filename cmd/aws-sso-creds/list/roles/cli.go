@@ -1,8 +1,8 @@
 package roles
 
 import (
+	"aws-sso-creds-default-login/pkg/config"
 	"fmt"
-	"github.com/alecuba16/aws-sso-creds-default-login/pkg/config"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/sso"

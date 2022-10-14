@@ -1,8 +1,8 @@
 package version
 
 import (
+	"aws-sso-creds-default-login/pkg/version"
 	"fmt"
-	"github.com/alecuba16/aws-sso-creds-default-login/pkg/version"
 	"os"
 
 	"github.com/go-git/go-git/v5/plumbing"

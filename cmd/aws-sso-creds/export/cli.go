@@ -1,8 +1,8 @@
 package export
 
 import (
+	"aws-sso-creds-default-login/pkg/credentials"
 	"fmt"
-	"github.com/alecuba16/aws-sso-creds-default-login/pkg/credentials"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -14,6 +14,7 @@ func Command() *cobra.Command {
 		Short:        "Generates a set of shell commands to export AWS temporary creds to your environment",
 		Long:         "Generates a set of shell commands to export AWS temporary creds to your environment",
 		SilenceUsage: true,
+		Args:         cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
 
 			cmd.SilenceUsage = true
@@ -21,7 +22,9 @@ func Command() *cobra.Command {
 			profile := viper.GetString("profile")
 			homeDir := viper.GetString("home-directory")
 			login := viper.GetBool("login")
-
+			if profile == "" {
+				profile = args[0]
+			}
 			if profile == "" {
 				return fmt.Errorf("no profile specified")
 			}

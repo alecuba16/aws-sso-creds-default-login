@@ -1,4 +1,4 @@
-module github.com/alecuba16/aws-sso-creds-default-login
+module aws-sso-creds-default-login
 
 go 1.17
 

@@ -1,8 +1,8 @@
 package set
 
 import (
+	"aws-sso-creds-default-login/pkg/credentials"
 	"fmt"
-	"github.com/alecuba16/aws-sso-creds-default-login/pkg/credentials"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"os"
@@ -16,9 +16,8 @@ func Command() *cobra.Command {
 		Use:   "set PROFILE",
 		Short: "Create a new AWS profile with temporary credentials",
 		Long:  "Create a new AWS profile with temporary credentials",
-		Args:  cobra.MinimumNArgs(1),
+		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
-
 			cmd.SilenceUsage = true
 			profile := viper.GetString("profile")
 			asdefault := viper.GetBool("asdefault")
@@ -26,11 +25,12 @@ func Command() *cobra.Command {
 			homeDir := viper.GetString("home-directory")
 			credsPath := fmt.Sprintf("%s/.aws/credentials", homeDir)
 			cfgPath := fmt.Sprintf("%s/.aws/config", homeDir)
-
+			if profile == "" {
+				profile = args[0]
+			}
 			if profile == "" {
 				return fmt.Errorf("no profile specified")
 			}
-
 			creds, _, err := credentials.GetSSOCredentials(profile, homeDir, login)
 			if err != nil {
 				return err
@@ -73,8 +73,8 @@ func Command() *cobra.Command {
 			credsFile.SaveWithDelimiter(credsPath, "=")
 			configFile.SaveWithDelimiter(cfgPath, "=")
 
-			fmt.Printf("credentials saved to profile: %s\n", args[0])
-			fmt.Printf("these credentials will expire:  %s\n", time.Unix(*creds.RoleCredentials.Expiration, 0).Format(time.UnixDate))
+			fmt.Println(fmt.Sprintf("credentials saved to profile: %s", args[0]))
+			fmt.Println(fmt.Sprintf("these credentials will expire:  %s", time.Unix(*creds.RoleCredentials.Expiration, 0).Format(time.UnixDate)))
 
 			return nil
 		},

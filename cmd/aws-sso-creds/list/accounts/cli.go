@@ -1,8 +1,8 @@
 package accounts
 
 import (
+	"aws-sso-creds-default-login/pkg/config"
 	"fmt"
-	"github.com/alecuba16/aws-sso-creds-default-login/pkg/config"
 	"io/ioutil"
 	"os"
 
