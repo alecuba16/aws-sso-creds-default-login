@@ -63,8 +63,16 @@ func Command() *cobra.Command {
 			credsFile.Set(args[0], "aws_session_token", *creds.RoleCredentials.SessionToken)
 
 			if asdefault == true {
-				credsFile.AddSection("default")
+				// Set default region
+				region, err := configFile.Get(fmt.Sprintf("profile %s", args[0]), "region")
+				if err != nil {
+					return err
+				}
 				configFile.AddSection(fmt.Sprintf("profile default"))
+				configFile.Set(fmt.Sprintf("profile default"), "region", region)
+				configFile.AddSection(fmt.Sprintf("default"))
+				configFile.Set(fmt.Sprintf("default"), "region", region)
+				credsFile.AddSection("default")
 				credsFile.Set("default", "aws_access_key_id", *creds.RoleCredentials.AccessKeyId)
 				credsFile.Set("default", "aws_secret_access_key", *creds.RoleCredentials.SecretAccessKey)
 				credsFile.Set("default", "aws_session_token", *creds.RoleCredentials.SessionToken)
