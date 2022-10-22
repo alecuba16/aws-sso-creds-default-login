@@ -68,8 +68,6 @@ func Command() *cobra.Command {
 				if err != nil {
 					return err
 				}
-				configFile.AddSection("profile default")
-				configFile.Set("profile default", "region", region)
 				configFile.AddSection("default")
 				configFile.Set("default", "region", region)
 				credsFile.AddSection("default")
