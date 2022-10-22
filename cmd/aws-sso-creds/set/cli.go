@@ -11,6 +11,10 @@ import (
 	"github.com/bigkevmcd/go-configparser"
 )
 
+const (
+	defaultSectionName = "DEFAULT"
+)
+
 func Command() *cobra.Command {
 	command := &cobra.Command{
 		Use:   "set PROFILE",
@@ -71,10 +75,10 @@ func Command() *cobra.Command {
 				configFile.AddSection("default")
 				configFile.Set("default", "region", region)
 				credsFile.AddSection("default")
-				credsFile.Set("default", "aws_access_key_id", *creds.RoleCredentials.AccessKeyId)
-				credsFile.Set("default", "aws_secret_access_key", *creds.RoleCredentials.SecretAccessKey)
-				credsFile.Set("default", "aws_session_token", *creds.RoleCredentials.SessionToken)
-				credsFile.Set("default", "region", region)
+				credsFile.Set(defaultSectionName, "aws_access_key_id", *creds.RoleCredentials.AccessKeyId)
+				credsFile.Set(defaultSectionName, "aws_secret_access_key", *creds.RoleCredentials.SecretAccessKey)
+				credsFile.Set(defaultSectionName, "aws_session_token", *creds.RoleCredentials.SessionToken)
+				credsFile.Set(defaultSectionName, "region", region)
 
 			}
 
