@@ -3,6 +3,7 @@ module aws-sso-creds-default-login
 go 1.17
 
 require (
+	github.com/alecuba16/go-configparser-lowercase v0.0.0-20221023094744-bb5f5826c880
 	github.com/aws/aws-sdk-go v1.43.15
 	github.com/go-git/go-git/v5 v5.1.0
 	github.com/liggitt/tabwriter v0.0.0-20181228230101-89fcab3d43de
@@ -14,7 +15,6 @@ require (
 )
 
 require (
-	github.com/alecuba16/go-configparser-lowercase v0.0.0-20221023094744-bb5f5826c880 // indirect
 	github.com/blang/semver v1.1.1-0.20190414182527-1a9109f8c4a1 // indirect
 	github.com/emirpasic/gods v1.12.0 // indirect
 	github.com/fsnotify/fsnotify v1.4.7 // indirect

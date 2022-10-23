@@ -3,7 +3,7 @@ package set
 import (
 	"aws-sso-creds-default-login/pkg/credentials"
 	"fmt"
-	"github.com/bigkevmcd/go-configparser"
+	"github.com/alecuba16/go-configparser-lowercase"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"os"
