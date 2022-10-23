@@ -72,9 +72,9 @@ func Command() *cobra.Command {
 				if err != nil {
 					return err
 				}
-				configFile.AddSection("default")
-				configFile.Set("default", "region", region)
-				credsFile.AddSection("default")
+				configFile.AddSection(defaultSectionName)
+				configFile.Set(defaultSectionName, "region", region)
+				credsFile.AddSection(defaultSectionName)
 				credsFile.Set(defaultSectionName, "aws_access_key_id", *creds.RoleCredentials.AccessKeyId)
 				credsFile.Set(defaultSectionName, "aws_secret_access_key", *creds.RoleCredentials.SecretAccessKey)
 				credsFile.Set(defaultSectionName, "aws_session_token", *creds.RoleCredentials.SessionToken)
