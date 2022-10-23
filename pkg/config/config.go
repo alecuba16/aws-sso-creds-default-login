@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"github.com/alecuba16/go-configparser-lowercase"
 )
 
 // GetSSOConfig retrieves the SSO configuration for a given AWS profile
