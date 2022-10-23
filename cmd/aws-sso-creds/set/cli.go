@@ -3,16 +3,15 @@ package set
 import (
 	"aws-sso-creds-default-login/pkg/credentials"
 	"fmt"
+	"github.com/bigkevmcd/go-configparser"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"os"
 	"time"
-
-	"github.com/bigkevmcd/go-configparser"
 )
 
 const (
-	defaultSectionName = "DEFAULT"
+	defaultSectionName = "default"
 )
 
 func Command() *cobra.Command {
