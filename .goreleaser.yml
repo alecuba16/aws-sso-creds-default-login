@@ -1,3 +1,4 @@
+version: 2
 before:
   hooks:
     - go mod download
@@ -23,18 +24,17 @@ archives:
 snapshot:
   name_template: "{{ .Tag }}-SNAPSHOT"
 changelog:
-  skip: true
+  disable: true
 release:
   prerelease: auto
 brews:
-  - 
-    name: aws-sso-creds
-    tap:
+  - name: aws-sso-creds
+    repository:
       owner: alecuba16
       name: homebrew-tap
     commit_author:
       name: Alejandro Blanco-M
       email: alecuba16@gmail.com
-    folder: Formula
+    directory: Formula
     homepage: "https://www.linkedin.com/in/alejandro-blanco-m-b847244b/"
     description: "Get AWS SSO temporary creds from an SSO profile. Includes set as the default profile inside the credentials and login flag"
