@@ -67,6 +67,21 @@ func LoginSSO(profile string, homedir string) error {
 	_, err := cmd.CombinedOutput()
 	if err != nil {
 		fmt.Println(err.Error())
+		// If error is "exit status 253" maybe the profile name is wrong
+		if err.Error() == "exit status 253" {
+		  fmt.Println(fmt.Sprintf("Error exit status 253, maybe the profile name is wrong"))
+		  // Print the available list of profile
+		  cmd := exec.Command(app, "configure", "list-profiles")
+		  fmt.Println("Available profiles:")
+		  out, err := cmd.CombinedOutput()
+		  if err != nil {
+		    fmt.Println(err.Error())
+		  }else{
+		    fmt.Println(string(out))
+      }
+		}else{
+		  fmt.Println(err.Error())
+		  }
 		return err
 	}
 	return nil
