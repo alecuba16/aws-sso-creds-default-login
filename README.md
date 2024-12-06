@@ -63,6 +63,13 @@ These credentials will expire at: Mon Oct 31 16:03:20 PST 52495
 
 `aws-sso-creds` will automatically use the `AWS_PROFILE` environment variable you have set. You can also specify a profile with `aws-sso-creds --profile`
 
+## Set default credentials
+
+Use the -d flag
+
+```bash
+$ aws-sso-creds set [profile] [-d] 
+
 ## Populate your shell with vars
 
 If you want to just get going without any copying and pasting, use [eval](https://man7.org/linux/man-pages/man1/eval.1p.html) with `aws-sso-creds export`
