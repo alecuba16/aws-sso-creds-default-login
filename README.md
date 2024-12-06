@@ -48,7 +48,7 @@ This simple utility is designed to take the pain out of this process. It can:
 
 ## Get credentials
 
-If you just want to retrieve a set of credentials for your AWS SSO based profile, just run `aws-sso-creds get`:
+If you just want to retrieve a set of credentials for your AWS SSO based profile, just run `aws-sso-creds get`, if you want to force the login use the `-l` flag:
 
 ```bash
 $ aws-sso-creds get [profile] [-l] 
@@ -65,10 +65,11 @@ These credentials will expire at: Mon Oct 31 16:03:20 PST 52495
 
 ## Set default credentials
 
-Use the -d flag
+For setting the credentials to the `default`profile use the `-d` flag:
 
 ```bash
 $ aws-sso-creds set [profile] [-d] 
+```
 
 ## Populate your shell with vars
 
